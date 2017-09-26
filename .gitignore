@@ -1,0 +1,4 @@
+node_modules
+**/semantic/dist/components/*
+**/semantic/dist/themes/*
+!**/semantic/dist/themes/default

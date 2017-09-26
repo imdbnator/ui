@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "entryid": 30,
+  "title": "Rush Hour",
+  "results": [
+    {
+      "entryid": 56,
+      "title": "Rush Hour 3",
+      "score": 6,
+      "scores": {
+        "cast": {
+          "score": 4,
+          "matches": [
+            "Jackie Chan",
+            "Chris Tucker"
+          ]
+        },
+        "keywords": {
+          "score": 0,
+          "matches": []
+        },
+        "genres": {
+          "score": 2,
+          "matches": [
+            "Action",
+            "Comedy",
+            "Crime",
+            "Thriller"
+          ]
+        }
+      }
+    },
+    {
+      "entryid": 195,
+      "title": "The A-Team",
+      "score": 3,
+      "scores": {
+        "cast": {
+          "score": 0,
+          "matches": []
+        },
+        "keywords": {
+          "score": 1,
+          "matches": [
+            "duringcreditsstinger"
+          ]
+        },
+        "genres": {
+          "score": 2,
+          "matches": [
+            "Action",
+            "Comedy",
+            "Crime",
+            "Thriller"
+          ]
+        }
+      }
+    }
+  ]
+}

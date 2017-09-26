@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" version="1.1" width="32" height="32" xmlns="http://www.w3.org/2000/svg"><defs xmlns="http://www.w3.org/1999/xhtml"><style type="text/css"><![CDATA[]]></style></defs>
+<g id="surface1">
+<path style=" fill:#78909C;" d="M 6 30 L 6 40 C 6 41.105469 6.894531 42 8 42 L 40 42 C 41.105469 42 42 41.105469 42 40 L 42 30 Z "/>
+<path style=" fill:#455A64;" d="M 39 8 C 39 6.894531 38.105469 6 37 6 L 11 6 C 9.894531 6 9 6.894531 9 8 L 6 30 C 6 31.105469 6.894531 32 8 32 L 40 32 C 41.105469 32 42 31.105469 42 30 Z "/>
+<path style=" fill:#263238;" d="M 9 32 L 31 32 L 31 39 L 9 39 Z "/>
+<path style=" fill:#FDD835;" d="M 11 35 L 13 35 L 13 39 L 11 39 Z "/>
+<path style=" fill:#FDD835;" d="M 15 35 L 17 35 L 17 39 L 15 39 Z "/>
+<path style=" fill:#FDD835;" d="M 19 35 L 21 35 L 21 39 L 19 39 Z "/>
+<path style=" fill:#FDD835;" d="M 23 35 L 25 35 L 25 39 L 23 39 Z "/>
+<path style=" fill:#FDD835;" d="M 27 35 L 29 35 L 29 39 L 27 39 Z "/>
+<path style=" fill:#64DD17;" d="M 39 37 C 39 38.105469 38.105469 39 37 39 C 35.894531 39 35 38.105469 35 37 C 35 35.894531 35.894531 35 37 35 C 38.105469 35 39 35.894531 39 37 Z "/>
+</g>
+</svg>

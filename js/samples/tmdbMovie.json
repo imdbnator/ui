@@ -1,0 +1,174 @@
+{
+  "tmdbid": 263115,
+  "imdbid": "tt3315342",
+  "title": "Logan",
+  "title_original": "Logan",
+  "year": 2017,
+  "tagline": "His time has come",
+  "rating": 7.5,
+  "votes": 5747,
+  "popularity": 136.878177,
+  "plot": "In the near future, a weary Logan cares for an ailing Professor X in a hideout on the Mexican border. But Logan's attempts to hide from the world and his legacy are upended when a young mutant arrives, pursued by dark forces.",
+  "language": "English",
+  "genres": [
+    "Action",
+    "Drama",
+    "Science Fiction"
+  ],
+  "runtime": 137,
+  "keywords": [
+    "cyborg",
+    "experiment",
+    "self-destruction",
+    "mutant",
+    "future",
+    "dystopia",
+    "immortality",
+    "marvel comic",
+    "sequel",
+    "superhero",
+    "based on comic book",
+    "scientific experiment",
+    "super powers",
+    "neo-western",
+    "troubled past",
+    "life on the margin"
+  ],
+  "poster": "/gGBu0hKw9BGddG8RkRAMX7B6NDB.jpg",
+  "backdrop": "/5pAGnkFYSsFJ99ZxDIYnhQbQFXs.jpg",
+  "trailers": [
+    {
+      "name": "Official Trailer 2",
+      "size": "HD",
+      "source": "RH3OxVFvTeg",
+      "type": "Trailer"
+    },
+    {
+      "name": "Official Trailer #2 [UK]",
+      "size": "HD",
+      "source": "XaE_9pfybL4",
+      "type": "Trailer"
+    },
+    {
+      "name": "Official Trailer",
+      "size": "HD",
+      "source": "Div0iP65aZo",
+      "type": "Trailer"
+    },
+    {
+      "name": "\"You Know the Drill\"",
+      "size": "HD",
+      "source": "unciPjkH-O4",
+      "type": "Clip"
+    }
+  ],
+  "budget": 97000000,
+  "revenue": 616227370,
+  "collection": {
+    "id": 453993,
+    "name": "The Wolverine Collection",
+    "poster_path": "/8Ht4a5A5Ypxh0PjbVoRTzm1kAu3.jpg",
+    "backdrop_path": "/QtSxEuCwcZSfCTMZfER3nHDVsG.jpg"
+  },
+  "homepage": "http://www.foxmovies.com/movies/logan",
+  "adult": false,
+  "cast": [
+    {
+      "cast_id": 0,
+      "character": "Logan / X-24",
+      "credit_id": "533fea800e0a2636220013dd",
+      "gender": 2,
+      "id": 6968,
+      "name": "Hugh Jackman",
+      "order": 0,
+      "profile_path": "/2VFrKpHGSKNUfq3TI6zUSU5AIdt.jpg"
+    },
+    {
+      "cast_id": 4,
+      "character": "Charles",
+      "credit_id": "54db4049c3a368122a0017f4",
+      "gender": 2,
+      "id": 2387,
+      "name": "Patrick Stewart",
+      "order": 1,
+      "profile_path": "/wEy5qSDT5jT3ZASc2hbwi59voPL.jpg"
+    },
+    {
+      "cast_id": 35,
+      "character": "Laura",
+      "credit_id": "581aeffcc3a3683e26001df3",
+      "gender": 1,
+      "id": 1464650,
+      "name": "Dafne Keen",
+      "order": 2,
+      "profile_path": "/8aLVAImifonO7hWT8A6z3Xbt34F.jpg"
+    },
+    {
+      "cast_id": 6,
+      "character": "Pierce",
+      "credit_id": "5708a1859251410a4b001894",
+      "gender": 2,
+      "id": 467645,
+      "name": "Boyd Holbrook",
+      "order": 3,
+      "profile_path": "/531YOKa2usleWCA55t6Db4MZhT3.jpg"
+    },
+    {
+      "cast_id": 7,
+      "character": "Caliban",
+      "credit_id": "57216d1ec3a3681eda000da9",
+      "gender": 2,
+      "id": 39189,
+      "name": "Stephen Merchant",
+      "order": 4,
+      "profile_path": "/A70Gtg3kkTeCBgtFkSRPu9qfPQu.jpg"
+    }
+  ],
+  "crew": [
+    {
+      "credit_id": "533fea9b0e0a262b920011f5",
+      "department": "Production",
+      "gender": 1,
+      "id": 7200,
+      "job": "Producer",
+      "name": "Lauren Shuler Donner",
+      "profile_path": "/uwuWpT2xyhwlrfSCk6xTTvrRvEE.jpg"
+    },
+    {
+      "credit_id": "533feaa70e0a26362c0013c3",
+      "department": "Production",
+      "gender": 2,
+      "id": 7624,
+      "job": "Executive Producer",
+      "name": "Stan Lee",
+      "profile_path": "/dTr2gJPL7jELKVkcjtoNx80uVKR.jpg"
+    },
+    {
+      "credit_id": "586ef1e19251412ae80009d1",
+      "department": "Writing",
+      "gender": 0,
+      "id": 1307349,
+      "job": "Story",
+      "name": "David James Kelly",
+      "profile_path": null
+    },
+    {
+      "credit_id": "54db405cc3a368122d0016f7",
+      "department": "Directing",
+      "gender": 2,
+      "id": 366,
+      "job": "Director",
+      "name": "James Mangold",
+      "profile_path": "/1gt0VmCyBHhQLKhaBDCEIwvRWe.jpg"
+    },
+    {
+      "credit_id": "5793aa04c3a3684012010965",
+      "department": "Camera",
+      "gender": 2,
+      "id": 943,
+      "job": "Director of Photography",
+      "name": "John Mathieson",
+      "profile_path": null
+    }
+  ]
+}

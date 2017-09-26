@@ -1,0 +1,110 @@
+.ui.reactPage.grid {
+  margin-top: 3em;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.ui.checkbox input[type=checkbox], .ui.checkbox input[type=radio] {
+  opacity: 1 !important;
+}
+/*.ui.search>.results .result .description*/
+.sub.header {
+ font-family: 'Proxima-Nova-Regular';
+}
+
+.description {
+  font-family: 'Proxima-Nova-Thin';
+}
+
+.force.hide {
+  display: none;
+}
+
+.ui.padded.menu>.item {
+  padding: 1.3rem;
+}
+
+.backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  filter: blur(10px) brightness(0.4) opacity(0.8);
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  filter: blur(0px) brightness(0.7) opacity(0.8);
+}
+
+.ui.page.dimmer {
+  background-color: #000000 !important;
+}
+
+.actor {
+  float: left;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 100% !important;
+  margin-right: 0.5em !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+.no-margin {
+  margin: 0!important
+}
+
+.notification-bar.success {
+  z-index: 1000000;
+  background: #21BA45 !important;
+}
+
+.notification-bar.error {
+  z-index: 1000000;
+  background: #DC3522 !important;
+}
+
+.ui.sidebar .item {
+  padding: 0em;
+  padding-top: 0.928571em;
+}
+
+.ui.sidebar .item:last-child {
+  padding-bottom: 0.928571em;
+}
+
+.ui.popup h5 {
+  font-size: 0.8rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.success.item {
+  background: #21BA45;
+}
+
+.ui.star.rating .icon {
+  color: rgba(0,0,0,0.75)
+}
+
+/*Use proxima nova light for description*/
+.ui.list >.item .description {
+    display: block;
+    color: white;
+    font-family: Proxima-Nova-Thin;
+}

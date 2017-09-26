@@ -1,0 +1,66 @@
+{/*<div class="equal width row">
+  <div class="middle aligned column">
+    <h1 class="ui header">Movies</h1>
+  </div>
+  <div class="middle aligned right aligned column">
+    <div class="ui secondary compact menu">
+      <div class="item">
+        Total <a class="ui green label">{this.props.count.movies}</a>
+      </div>
+      <div class="item">
+        Blurays <a class="ui blue label">{this.props.count.blurays}</a>
+      </div>
+      <div class="item">
+        Oscars <a class="ui yellow label">{this.props.count.oscars}</a>
+      </div>
+      <div class="item">
+        HD <a class="ui red label">{this.props.count.hds}</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="ui menu">
+      <div class="left menu">
+        <div class="item">Showing {section[0]} - {section[1]} of {total} movies</div>
+      </div>
+      <Pagination addClass="left menu" activePage={page} itemsPerPage={perPage} totalItems={total} dispatch={this._handlePaginationClick}/>
+      <div class="right menu">
+        <div class="ui category search item">
+          <div class="ui icon transparent input">
+            <input type="text" placeholder="titanic, batman ..." class="prompt" onChange={this._handleSearch}/>
+            <i class="search icon"></i>
+          </div>
+        </div>
+        <a class="item"><i class="options icon"></i></a>
+        <div class="ui simple dropdown item" onClick={this._handleOrderClick}>
+          {this.state.sort.order === 'asc'
+            ? <i class="sort alphabet ascending icon"></i>
+            : <i class="sort alphabet descending icon"></i>
+          }
+          <div class="menu">
+            <div class="header">Sort by</div>
+            <a class={`${(this.state.sort.field === 'entryid') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="entryid"><i class="hashtag icon"></i>Default</a>
+            <a class={`${(this.state.sort.field === 'title') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="title"><i class="font icon"></i>Title</a>
+            <a class={`${(this.state.sort.field === 'rating') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="rating"><i class="yellow star icon"></i>Rating</a>
+            <a class={`${(this.state.sort.field === 'year') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="year"><i class="calendar icon"></i>Year</a>
+            <a class={`${(this.state.sort.field === 'runtime') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="runtime"><i class="clock icon"></i>Runtime</a>
+            <a class={`${(this.state.sort.field === 'votes') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="votes"><i class="users icon"></i>Votes</a>
+            <a class={`${(this.state.sort.field === 'size') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="size"><i class="file icon"></i>File Size</a>
+          </div>
+        </div>
+        <div class="ui simple dropdown item">
+          <i class="grid layout icon"></i>
+          <div class="menu">
+            <div class="header">Change view</div>
+            <a class="item"><i class="picture icon"></i>Posters</a>
+            <a class="item"><i class="columns icon"></i>Table</a>
+            <a class="item"><i class="yellow folder icon"></i>Folders</a>
+            <a class="item"><i class="list icon"></i>List</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>*/}

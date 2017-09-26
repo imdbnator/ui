@@ -1,0 +1,40 @@
+{
+  "imdbid": "tt0145487",
+  "title": "Spider-Man",
+  "year": 2002,
+  "rating": 7.3,
+  "votes": 547720,
+  "plot": "When bitten by a genetically modified spider, a nerdy, shy, and awkward high school student gains spider-like abilities that he eventually must use to fight evil as a superhero after tragedy befalls his family.",
+  "language": "English",
+  "genres": [
+    "Action",
+    "Adventure",
+    "Romance"
+  ],
+  "cast": [
+    {
+      "order": 0,
+      "name": "Tobey Maguire"
+    },
+    {
+      "order": 1,
+      "name": "Willem Dafoe"
+    },
+    {
+      "order": 2,
+      "name": "Kirsten Dunst"
+    },
+    {
+      "order": 3,
+      "name": "James Franco"
+    }
+  ],
+  "director": [
+    {
+      "order": 0,
+      "name": "Sam Raimi"
+    }
+  ],
+  "runtime": "121",
+  "poster": "http://ia.media-imdb.com/images/M/MV5BMzk3MTE5MDU5NV5BMl5BanBnXkFtZTYwMjY3NTY3._V1_SX300.jpg"
+}
