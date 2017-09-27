@@ -89,7 +89,10 @@ export default class Process extends React.Component {
                     <div class='item'>
                       <div class='content'>
                         <div class='header'>
-                          {(!this.state.isProcessed && this.state.received.length !== 0) && 'Processing:'}
+                          {(!this.state.isProcessed && this.state.received.length !== 0)
+                            ? 'Processing:'
+                            :  'Connecting ...'
+                          }
                           {this.state.isProcessed && 'Redirecting ...'}
                         </div>
                         <div class='description'>
@@ -165,7 +168,7 @@ export default class Process extends React.Component {
       debug && console.log('Socket (INFO):', 'Disconnected')
       if (!this.state.error){
         debug && console.log('Process (INFO):', 'Redirecting')
-        // this.props.history.push(`/collection/${this.state.id}`)
+        this.props.history.push(`/collection/${this.state.id}`)
       }
     })
   }
