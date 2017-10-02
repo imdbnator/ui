@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
-    "bundle": "NODE_ENV=production webpack -p",
+    "bundle": "webpack -p",
     "build": "npm install && npm run bundle"
   },
   "keywords": [
