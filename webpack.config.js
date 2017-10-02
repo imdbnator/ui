@@ -7,16 +7,22 @@ Notes
 const webpack = require('webpack')
 const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const env = process.env.NODE_ENV || 'dev'
+const api = process.env.API_HOST || 'localhost:8081'
+const protocol = process.env.PROTOCOL || 'http://'
+
+console.log('env:', env);
+console.log('api:', api);
 
 config = {
-  context: path.resolve(__dirname, 'js'),
+  context: path.resolve(__dirname, 'src'),
   entry: {
     main: './main.jsx'
   },
   output: {
     path: path.resolve(__dirname, 'assets'),
     publicPath: '/assets/',
-    filename: 'js/[name].bundle.js'
+    filename: 'src/[name].bundle.js'
   },
   module: {
     loaders: [{
@@ -29,12 +35,7 @@ config = {
       }
     }]
   },
-  plugins: (process.env.NODE_ENV === 'production') ? [
-     new webpack.optimize.OccurrenceOrderPlugin(),
-     new webpack.optimize.UglifyJsPlugin()
-   ] : [
-     new BundleAnalyzerPlugin()
-   ],
+  plugins: [],
   devServer: {
     // host: '192.168.0.6',
     port: 3000,
@@ -46,14 +47,14 @@ config = {
   },
   resolve: {
     alias: {
-      pages: path.resolve(__dirname, 'js/pages/'),
-      components: path.resolve(__dirname, 'js/components/'),
-      actions: path.resolve(__dirname, 'js/redux/actions/'),
-      store: path.resolve(__dirname, 'js/redux/store/'),
-      reducers: path.resolve(__dirname, 'js/redux/reducers/'),
-      modules: path.resolve(__dirname, 'js/modules/'),
-      samples: path.resolve(__dirname, 'js/samples/'),
-      utils: path.resolve(__dirname, 'js/utils/')
+      pages: path.resolve(__dirname, 'src/pages/'),
+      components: path.resolve(__dirname, 'src/components/'),
+      actions: path.resolve(__dirname, 'src/redux/actions/'),
+      store: path.resolve(__dirname, 'src/redux/store/'),
+      reducers: path.resolve(__dirname, 'src/redux/reducers/'),
+      modules: path.resolve(__dirname, 'src/modules/'),
+      samples: path.resolve(__dirname, 'src/samples/'),
+      utils: path.resolve(__dirname, 'src/utils/')
     },
     extensions: ['.js', '.jsx', '.json']
   }
@@ -61,8 +62,11 @@ config = {
 
 // Set Global variables
 config.plugins.push(new webpack.DefinePlugin({
-  'process.env': {NODE_ENV: JSON.stringify(process.env.NODE_ENV) || JSON.stringify('debug')},
-  API_HOST: JSON.stringify('localhost:8081')
+  'process.env': {
+    NODE_ENV: JSON.stringify(env),
+    PROTOCOL: JSON.stringify(protocol),
+    API_HOST: JSON.stringify(api)
+  },
 }))
 
 module.exports = config
