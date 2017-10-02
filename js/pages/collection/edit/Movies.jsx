@@ -1,17 +1,24 @@
+/*
+Bug
+  - Unsub error before of improper way of unmounting popup by Sematic UI's react or somewhere in mine.
+ */
 import React from 'react'
 import {connect} from 'react-redux'
-import Popup from 'semantic-ui-react/dist/commonjs/modules/Popup/Popup.js'
-import {EditBox} from 'components/search'
-import {DefaultPoster} from 'components/posters'
-import {Loading} from 'components/notifications'
 import includes from 'lodash.includes'
 import isEmpty from 'lodash.isempty'
 import {randomNumber} from 'modules/utils'
+
+import {globalNotify} from 'actions/notify'
+
+import Popup from 'semantic-ui-react/dist/commonjs/modules/Popup/Popup.js'
+import {EditBox} from 'components/search'
+import {Loading} from 'components/notifications'
 
 let componentKey = 0
 
 @connect((store) => {
   return {
+    id: store.fetch.collection.id,
     movies: store.fetch.collection.movies
   }
 })
@@ -20,7 +27,7 @@ export default class Movies extends React.Component {
     super(props)
     this.state = {
       isLoading: true,
-      value: "",
+      value: !isEmpty(props.match.params.title) ? props.match.params.title : "",
       placeholder: (!isEmpty(props.movies)) ? props.movies[randomNumber(0, props.movies.length -1)].input : 'Search title ...'
     }
   }
@@ -30,6 +37,34 @@ export default class Movies extends React.Component {
     this.setState({value})
   }
 
+  _handleReset(event){
+    fetch(`http://${API_HOST}/collection/${this.props.id}`, {
+      method: 'PURGE'
+    })
+    .then((response) => {
+      if (response.status !== 200) throw new Error(`Server status: ${response.status}`)
+      return response.json()
+    })
+    .then((data) => {
+      if (!data.success) throw new Error(data.message)
+      localStorage.setItem('refetch', 'true')
+      this.props.dispatch(globalNotify({
+        title: 'Success!',
+        message: 'Changes have been undone. Refresh page.',
+        type: 'success'
+      }))
+      console.log('Reset (SUCCESS):', data)
+    })
+    .catch((err) => {
+      this.props.dispatch(globalNotify({
+        title: 'Bummer!',
+        message: err.message,
+        type: 'error'
+      }))
+      console.log('Reset (ERROR):', err.message)
+    })
+  }
+
   render() {
     if (this.state.isLoading){
       return(<Loading message="Loading data ..." />)
@@ -37,6 +72,7 @@ export default class Movies extends React.Component {
 
     const value = this.state.value
     const movies = this.props.movies
+    const hasModified = movies.filter(a => a.modified !== false).length !== 0
     const filteredMovies = (isEmpty(value))
                             ? movies
                             : movies.filter(a =>
@@ -57,7 +93,9 @@ export default class Movies extends React.Component {
         <div class="two column stackable row">
           <div class="column">
             <h1 class="ui header">
-              Edit Movies <div class="ui green label">{movies.length}</div>
+              Edit Movies
+              <div class="ui green label">{movies.length}</div>
+              {hasModified && <a class="ui inverted red link label" onClick={this._handleReset.bind(this)}>Reset Changes</a>}
             </h1>
           </div>
           <div class="column">
@@ -88,7 +126,7 @@ export default class Movies extends React.Component {
             }
           </div>
         </div>
-        <div class="equal width stackable row">
+        <div class="two column stackable row">
           <div class="column">
             <div class="ui very relaxed selection list">
               { Items1 }
@@ -115,10 +153,12 @@ class EditItem extends React.Component {
 
   render() {
     const movie = this.props.movie
-    const {input, title, guess, poster} = movie
+    const {input, title, guess, poster, modified} = movie
+    let itemStyle = {wordBreak: 'break-all'}
+
     return (
       <Popup on="hover" size="small" trigger={
-        <div class="item" style={{wordBreak: 'break-all'}} style={{wordBreak: 'break-all'}}>
+        <div class='item' style={itemStyle}>
           <i class="yellow big folder icon"></i>
           <div class="content" >
             <div class="header">
@@ -130,7 +170,7 @@ class EditItem extends React.Component {
           </div>
         </div>
       } flowing hoverable>
-        {/*<EditBox movie={movie}/>*/}
+        <EditBox movie={movie}/>
       </Popup>
 
     )

@@ -1,9 +1,14 @@
+/*
+Notes
+  - Detailed webpack configration can be found in the documentation: https://webpack.js.org/configuration/
+  - `webpack -p` same as UglifyJS with process.env.NODE_ENV == 'production' (https://webpack.js.org/guides/production/)
+ */
+
 const webpack = require('webpack')
 const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-// Detailed webpack configration can be found in the documentation: https://webpack.js.org/configuration/
-module.exports = {
+config = {
   context: path.resolve(__dirname, 'js'),
   entry: {
     main: './main.jsx'
@@ -24,11 +29,12 @@ module.exports = {
       }
     }]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      API_HOST: JSON.stringify('localhost:8081')
-    })
-  ],
+  plugins: (process.env.NODE_ENV === 'production') ? [
+     new webpack.optimize.OccurrenceOrderPlugin(),
+     new webpack.optimize.UglifyJsPlugin()
+   ] : [
+     new BundleAnalyzerPlugin()
+   ],
   devServer: {
     // host: '192.168.0.6',
     port: 3000,
@@ -51,5 +57,12 @@ module.exports = {
     },
     extensions: ['.js', '.jsx', '.json']
   }
-//  plugins: [new BundleAnalyzerPlugin()]
 }
+
+// Set Global variables
+config.plugins.push(new webpack.DefinePlugin({
+  'process.env': {NODE_ENV: process.env.NODE_ENV},
+  API_HOST: JSON.stringify('localhost:8081')
+}))
+
+module.exports = config

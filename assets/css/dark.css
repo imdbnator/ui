@@ -6,6 +6,11 @@ input[type="file"] {
   display: none;
 }
 
+.ui.search>.results {
+  left: auto;
+  right: 0;
+}
+
 .ui.checkbox input[type=checkbox], .ui.checkbox input[type=radio] {
   opacity: 1 !important;
 }

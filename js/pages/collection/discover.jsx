@@ -13,7 +13,7 @@ import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown.
 import {countryOptions} from 'utils/countries'
 import {sequentialFilter} from 'modules/collection'
 
-const debug = true
+const debug = process.env.NODE_ENV || false
 
 @connect((store) => {
   return {
@@ -207,7 +207,7 @@ export default class Discover extends React.Component {
 
     return (
       <div class='ui padded stackable grid' style={{minHeight: '100%'}}>
-        <div class="background" style={{backgroundImage: `url(http://image.tmdb.org/t/p/w600/${bestMovie.backdrop})`}}></div>
+        <div class="background" style={{backgroundImage: `url(http://image.tmdb.org/t/p/w600/${(bestMovie.backdrop) ? bestMovie.backdrop : ''})`}}></div>
         <div class="row" style={{paddingTop: '4em'}}>
           <div class="eight wide mobile seven wide tablet five wide computer center aligned column">
             {!isEmpty(filteredMovies) &&

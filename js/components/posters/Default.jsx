@@ -6,12 +6,14 @@ import {getInitials} from 'modules/utils'
 
 function Placeholder (props) {
   const className = (props.className) ? props.className : 'ui image'
-  const fontSize = (props.fontSize) ? props.fontSize : (15 / 154) * '100%'
+  const fontSize = (props.fontSize) ? props.fontSize : (15 / 154) * 100
+  const width = (props.width) ? props.width : ((!props.isFluid) ? props.tmdbSize.match(/(?:w)(\d{2,4})/)[1] + 'px' : '100%' )
+  const height = (props.height) ? props.height : '100%'
 
   // onLoad svg does not work: https://github.com/facebook/react/issues/9607
   return (
-    <svg class={className} width='100%' height='100%' style={{height: '100%', width: '100%'}} xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1'>
-      <rect x='0' y='0' width='100%' height='100%' fill="#333" />
+    <svg class={className} width={width} height={height} style={{height, width}} xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' version='1.1'>
+      <rect x='0' y='0' width={width} height={height} fill="#333" />
       <text x='50%' y='50%' alignmentBaseline='middle' textAnchor='middle' fill='white' fontFamily="Proxima-Nova-Thin" fontSize={fontSize}>
         {(props.initials) ? getInitials(props.alt) : props.alt}
       </text>
@@ -28,14 +30,15 @@ class TMDBPoster extends React.Component {
       isLoading: true
     }
   }
+  _handleLoad(){
+    this.setState({isLoading: false})
+  }
   render() {
     const src = `https://image.tmdb.org/t/p/${this.props.tmdbSize}${this.props.posterPath}`
     let className = (this.props.className) ? this.props.className : 'ui image'
     className = (this.props.isFluid) ?  className + ' fluid' : className
 
-    return (
-      <img src={src} class={className} alt={this.props.alt} />
-    )
+    return (<img src={src} class={className} alt={this.props.alt} onLoad={this._handleLoad.bind(this)}/>)
   }
 }
 
@@ -46,8 +49,8 @@ export default class Default extends React.Component {
 
   render () {
 
-    const isFluid = includes(this.props.className, 'fluid')
-    const style = (isFluid) ? {'height': '100%'} : {}
+    const isFluid = (this.props.isFluid) ? true : includes(this.props.className, 'fluid')
+    const style = (this.props.noStretch) ? {} : ((isFluid) ? {'height': '100%'} : {})
     const className = this.props.className
     const imageClass = this.props.imageClass
 
@@ -56,7 +59,7 @@ export default class Default extends React.Component {
         <Link to={this.props.href} class={className} style={style}>
           {!isEmpty(this.props.posterPath)
             ? <TMDBPoster className={imageClass} tmdbSize={this.props.tmdbSize} posterPath={this.props.posterPath} alt={this.props.alt} isFluid={isFluid}/>
-            : <Placeholder className={imageClass} tmdbSize={this.props.tmdbSize} alt={this.props.alt} initials={this.props.initials} isFluid={isFluid}/>
+            : <Placeholder className={imageClass} width={this.props.width} height={this.props.height} tmdbSize={this.props.tmdbSize} alt={this.props.alt} initials={this.props.initials} isFluid={isFluid}/>
           }
           {this.props.children}
         </Link>
@@ -66,7 +69,7 @@ export default class Default extends React.Component {
         <div class={className} style={style}>
           {!isEmpty(this.props.posterPath)
             ? <TMDBPoster className={imageClass} tmdbSize={this.props.tmdbSize} posterPath={this.props.posterPath} alt={this.props.alt} isFluid={isFluid}/>
-            : <Placeholder className={imageClass} tmdbSize={this.props.tmdbSize} alt={this.props.alt} initials={this.props.initials} isFluid={isFluid}/>
+            : <Placeholder className={imageClass} width={this.props.width} height={this.props.height} tmdbSize={this.props.tmdbSize} alt={this.props.alt} initials={this.props.initials} isFluid={isFluid}/>
           }
           {this.props.children}
         </div>

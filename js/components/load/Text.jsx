@@ -86,7 +86,7 @@ export default class Text extends React.Component {
                 ? <a style={{float: 'right'}} href='javascript:void(0)' onClick={this._clearText.bind(this)}>Clear</a>
                 : <a style={{float: 'right'}} href='javascript:void(0)' onClick={this._enterSample.bind(this)}>Sample Input</a>
               }
-              <textarea rows='15' tabIndex='0' onChange={this._handleTextChange.bind(this)} value={this.state.inputs.map(input => input.name).join('\n')} />
+              <textarea style={{fontFamily: 'Proxima-Nova-Light'}} rows='15' tabIndex='0' onChange={this._handleTextChange.bind(this)} value={this.state.inputs.map(input => input.name).join('\n')} />
             </div>
           </div>
         </div>

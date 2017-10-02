@@ -19,6 +19,7 @@ let componentKey = 0
 @withRouter
 @connect((store) => {
   return {
+    id: store.fetch.collection.id,
     collection: store.fetch.collection
   }
 })
@@ -152,14 +153,14 @@ export default class FindAny extends React.Component {
 
   _handleResultSelect(event, {result}){
     const {entryid, tmdbid, title, type} = result
-    let path = `${this.props.match.url}`
+    let path = `/collection/${this.props.id}`
 
     switch (type) {
       case 'movies':
         path += '/movie/' + entryid
         break
       case 'languages':
-        path += '/movies/' + JSON.stringify({
+        path += '/movies/' + JSON.stringify([{
           "movies": {
             "AND": [{
               "field": "language",
@@ -167,10 +168,10 @@ export default class FindAny extends React.Component {
               "condition": "includes"
             }]
           }
-        })
+        }])
         break;
       case 'formats':
-        path += '/movies/' + JSON.stringify({
+        path += '/movies/' + JSON.stringify([{
           "movies": {
             "AND": [{
               "field": "format",
@@ -178,12 +179,12 @@ export default class FindAny extends React.Component {
               "condition": "includes"
             }]
           }
-        })
+        }])
         break
       case 'genres':
       case 'keywords':
       case 'format':
-        path += '/movies/' + JSON.stringify({
+        path += '/movies/' + JSON.stringify([{
           "movies": {
             "AND": [{
               "field": type,
@@ -191,7 +192,7 @@ export default class FindAny extends React.Component {
               "condition": "includes"
             }]
           }
-        })
+        }])
         break;
       case 'people':
         path += '/person/' + tmdbid

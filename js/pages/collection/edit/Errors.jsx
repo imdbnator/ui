@@ -56,8 +56,6 @@ export default class Errors extends React.Component {
       Item.push(<EditItem error={filteredErrors[i]} key={i} />)
     }
 
-    console.log(this.props);
-
     return (
       <div class="ui page reactPage grid">
         <div class="stackable two column row">
@@ -139,7 +137,7 @@ class EditItem extends React.Component {
           </div>
         </div>
       } flowing hoverable>
-        {/*<EditBox movie={movie}/>*/}
+        <EditBox movie={{entryid, input, guess}}/>
       </Popup>
 
     )

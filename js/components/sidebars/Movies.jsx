@@ -17,7 +17,7 @@ import {combineFilters, sequentialFilter, aggregateSection} from 'modules/collec
 import {Loading} from 'components/notifications'
 import Rating from 'semantic-ui-react/dist/commonjs/modules/Rating/Rating.js'
 
-const debug = false
+const debug = process.env.NODE_ENV || false
 let componentKey = 0
 
 @connect((store) => {

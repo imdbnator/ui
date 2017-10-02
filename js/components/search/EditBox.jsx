@@ -4,12 +4,15 @@ Todo
  */
 import React from 'react'
 import {connect} from 'react-redux'
+import {closestByClass} from 'modules/utils'
+import isEmpty from 'lodash.isempty'
+
 import Search from 'semantic-ui-react/dist/commonjs/modules/Search/Search.js'
 import {Loading, Dimmer} from 'components/notifications'
 import {DefaultPoster} from 'components/posters'
 import {globalNotify} from 'actions/notify'
 
-let componentKey= 0
+let componentKey = 0
 
 @connect((store) => {
   return {
@@ -22,7 +25,7 @@ export default class EditBox extends React.Component {
     this.state = {
       isSearchLoading: false,
       searchHits: [],
-      isClosestLoading: false,
+      isClosestLoading: true,
       maxClosestScore: 0,
       closestHits: [],
       isStoring: false,
@@ -30,8 +33,9 @@ export default class EditBox extends React.Component {
   }
 
   _handleChoose(event){
-    const $element = event.target
+    const $element = closestByClass(event.target, "button")
     const imdbid = $element.getAttribute('data-imdbid')
+    console.log(imdbid);
     this._modifyEntry(this.props.movie.entryid, imdbid)
   }
 
@@ -45,13 +49,14 @@ export default class EditBox extends React.Component {
     }).then(data => {
       if (!data.success) throw new Error(data.message)
       this.setState({isStoring: false})
+      localStorage.setItem('refetch', 'true')
       console.log('Storing (SUCCESS):', data);
       this.props.dispatch(globalNotify({
         title: 'Success!',
         message: 'The match has been overriden. Reload page for viewing changes.',
         type: 'success'
       }))
-      // Send new movie titleto listener.
+      // Send new movie title to listener.
     }).catch(err => {
       this.setState({isStoring: false})
       console.log('Storing (ERROR):', err.message);
@@ -108,7 +113,7 @@ export default class EditBox extends React.Component {
 
     return [
       <div class='image' key={key1}>
-        <DefaultPoster tmdbSize='w45' posterPath={image} alt={title} key={key2} />
+        <DefaultPoster className="ui image" tmdbSize='w45' posterPath={image} alt={title} key={key2} />
       </div>,
       <div class='content' key={key3}>
         {price && <div class='price'>{price}</div>}
@@ -126,31 +131,44 @@ export default class EditBox extends React.Component {
 
 
   render () {
-    if (this.state.isClosestLoading){
-      return(<Loading message="loading .." addClass="inverted"/>)
-    }
     return (
       <div class='ui three column celled center aligned grid'>
-        <div class='row'>
+        <div class='one column row'>
           <div class='column'>
             <Search
               loading={this.state.isSearchLoading}
               results={this._hitsToDropdown(this.state.searchHits)}
               onSearchChange={this._handleSearchChange.bind(this)}
               onResultSelect={this._handleResultSelect.bind(this)}
+              placeholder="Search for a title ...."
             />
           </div>
         </div>
         <div class='equal width row'>
-          {this.state.closestHits.slice(0, 3).map((hit,i) => {
+          {this.state.isClosestLoading && [1,2,3].map(i => {
+            return(
+              <div class='column' key={componentKey++}>
+                <h4 class="ui header">
+                  Loading
+                </h4>
+                <DefaultPoster className="ui image" posterPath={null} width='58px' height='87px' alt='Loading' />
+                <p>Confidence: 0%</p>
+                <div class="ui loading green button">Choose</div>
+              </div>
+            )})
+          }
+          {!this.state.isClosestLoading && isEmpty(this.state.closestHits) &&
+            []
+          }
+          {!this.state.isClosestLoading && this.state.closestHits.slice(0, 3).map((hit,i) => {
             const isDisabled = hit._source.imdbid === this.props.movie.imdbid  || hit._source.tmdbid === this.props.movie.tmdbid
             return (
               <div class='column' key={componentKey++}>
-                <h5 class='ui header'>
+                <h4 class='ui header'>
                   <span style={{textOverflow: 'ellipsis'}}>{hit._source.title}</span>
                     <div class="sub header">({hit._source.year})</div>
-                </h5>
-                <DefaultPoster posterPath={hit._source.poster} tmdbSize='w58_and_h87_bestv2' alt={hit._source.title} />
+                </h4>
+                <DefaultPoster className="ui image" posterPath={hit._source.poster} tmdbSize='w58_and_h87_bestv2' width='58px' height='87px' alt={hit._source.title} />
                 <p>Confidence: {Math.floor((hit._score/this.state.maxClosestScore) * 100)}%</p>
                 <div class={`${(this.state.isStoring) && 'loading disabled'} ${(isDisabled) && 'disabled'} ui green button`} data-imdbid={hit._source.imdbid} data-tmdbid={hit._source.tmdbid} onClick={this._handleChoose.bind(this)}>Choose</div>
               </div>
@@ -169,12 +187,11 @@ export default class EditBox extends React.Component {
     })
     .then((data) => {
       if (!data.success) throw new Error(data.message)
-      if (data.elasticsearch.hits.length === 0) throw new Error(`No results found for "${data.input}"`)
       this.setState({isClosestLoading: false, closestHits: data.elasticsearch.hits, maxClosestScore: data.elasticsearch.max_score})
       console.log('Best hits (SUCCESS):', data)
     })
     .catch((err) => {
-      this.setState({isClosestLoading: false})
+      this.setState({isClosestLoading: true})
       console.log('Best hits (ERROR):', err.message)
       this.props.dispatch(globalNotify({
         title: 'Bummer!',

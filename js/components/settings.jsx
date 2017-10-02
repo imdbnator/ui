@@ -1,10 +1,11 @@
 import React from 'react'
 import isEmpty from 'lodash.isempty'
 import queryString from 'query-string'
+import {pushOwns} from 'modules/user'
 import ClipboardButton from 'react-clipboard.js';
 import {closestByClass} from 'modules/utils'
 
-const debug = true
+const debug = process.env.NODE_ENV || false
 
 export default class Settings extends React.Component {
   constructor(props){
@@ -37,6 +38,7 @@ export default class Settings extends React.Component {
   _handleSkip(event){
     event.preventDefault()
     event.stopPropagation()
+    pushOwns(this.state.id)
     if (this.props.onSkip) this.props.onSkip()
   }
 
@@ -63,6 +65,9 @@ export default class Settings extends React.Component {
       if (!data.success) throw new Error(data.message)
       debug && console.log('Settings (SUCCESS):', data)
       this.setState({isSubmitting: false})
+      // Update localStorage
+      localStorage.setItem('refetch', 'true')
+      pushOwns(this.state.value.id)
       // Callback on success
       if (this.props.onSuccess) this.props.onSuccess({success: true, id: this.state.value.id})
     }).catch(err => {

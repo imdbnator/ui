@@ -14,11 +14,12 @@ import {formatBytes} from 'modules/utils'
 import {DefaultPoster} from 'components/posters'
 import {Loading, Dimmer} from 'components/notifications'
 
-const debug = true
+const debug = process.env.NODE_ENV || false
 let componentKey = 0
 
 @connect((store) => {
   return {
+    id: store.fetch.collection.id,
     movies: store.fetch.collection.movies
   }
 })
@@ -75,15 +76,15 @@ export default class Movie extends React.Component {
         const { tmdbid, name, gender, character, poster } = cast[i]
         let Cast = (i % 2 === 0) ? Cast1 : Cast2
         Cast.push(
-          <div class='item' key={i}>
+          <Link to={`/collection/${this.props.id}/person/${tmdbid}`} class='item' key={i}>
             <div class='ui image'>
-              <DefaultPoster className="actor" posterPath={poster} tmdbSize='w50_and_h50_bestv2' height='40' width='40' fontSize='40' alt={name} initials={true}/>
+              <DefaultPoster isFluid={true} noStretch={true} className="actor" posterPath={poster} tmdbSize='w50_and_h50_bestv2' fontSize='40' alt={name} initials={true}/>
             </div>
             <div class='middle aligned content'>
               <div class='header'>{name}</div>
               <div class='description'>as {character}</div>
             </div>
-          </div>
+          </Link>
         )
       }
     } else {
@@ -97,15 +98,15 @@ export default class Movie extends React.Component {
         const { tmdbid, name, gender, job, poster } = crew[i]
         let Crew = (i % 2 === 0) ? Crew1 : Crew2
         Crew.push(
-          <div class='item' key={i}>
+          <Link to={`/collection/${this.props.id}/person/${tmdbid}`} class='item' key={i}>
             <div class='ui image'>
-              <DefaultPoster className="actor" posterPath={poster} tmdbSize='w50_and_h50_bestv2' height='40' width='40' fontSize='40' alt={name} initials={true}/>
+              <DefaultPoster isFluid={true} noStretch={true} className="actor" posterPath={poster} tmdbSize='w50_and_h50_bestv2' fontSize='40' alt={name} initials={true}/>
             </div>
             <div class='middle aligned content'>
               <div class='header'>{name}</div>
               <div class='description'>{job}</div>
             </div>
-          </div>
+          </Link>
         )
       }
     } else {
@@ -126,6 +127,7 @@ export default class Movie extends React.Component {
 
     const labelStyle = {
       background: 'rgba(0,0,0,0.9)',
+      left: 0,
       width: '100%',
       position: 'absolute',
       padding: '10px 10px 10px 15px',
@@ -147,7 +149,7 @@ export default class Movie extends React.Component {
           </div>
           <div class="stackable row">
             <div class="sixteen wide mobile five wide tablet five wide computer center aligned column" >
-              <DefaultPoster className="ui image" posterPath={poster} tmdbSize='w300' alt='No Poster'>
+              <DefaultPoster className="ui center aligned image" posterPath={poster} tmdbSize='w300' alt='No Poster'>
                 <div class={`${(this.state.showDimmer) ? 'active' : ''} ui image dimmer`}>
                   <div class='content'>
                     <div class='center'>
@@ -157,15 +159,21 @@ export default class Movie extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div style={labelStyle}>
+                <Link to={`/collection/${this.props.id}/edit/movies/${input}`} style={labelStyle}>
                   <h5 class="ui inverted header">
                     {input}
                     <div class="sub red header">
                       ({formatBytes(size)})
                     </div>
                   </h5>
-                </div>
+                </Link>
               </DefaultPoster>
+              {!isEmpty(keywords) &&
+                [
+                  <div class="ui inverted header">Plot Keywords</div>,
+                  keywords.join(', ')
+                ]
+              }
             </div>
             <div class="eleven wide tablet eleven wide computer column">
               <div class="ui two column stackable grid">
@@ -234,12 +242,6 @@ export default class Movie extends React.Component {
                       <div class="ui images">
                         { SimilarMovies }
                       </div>
-                    ]
-                  }
-                  {!isEmpty(keywords) &&
-                    [
-                      <div class="ui inverted header">Plot Keywords</div>,
-                      keywords.join(', ')
                     ]
                   }
                 </div>

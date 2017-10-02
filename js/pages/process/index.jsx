@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import io from 'socket.io-client'
 import {NavLink, withRouter} from 'react-router-dom'
 import queryString from 'query-string'
+import isEmpty from 'lodash.isempty'
 
 import {globalNotify} from 'actions/notify'
 import {getInitials} from 'modules/utils'
@@ -10,7 +11,7 @@ import {getInitials} from 'modules/utils'
 import {Loading, Dimmer} from 'components/notifications'
 import {DefaultPoster} from 'components/posters'
 
-const debug = true
+const debug = process.env.NODE_ENV || false
 
 @withRouter
 @connect()
@@ -69,11 +70,6 @@ export default class Process extends React.Component {
               IMDBnator
             </div>
           </div>
-          <div class='right menu'>
-            <a class='item'>
-              process
-            </a>
-          </div>
         </div>
         <div class='ui green bottom attached progress'>
           <div class='bar' style={{width: `${(this.state.processedCount / this.state.totalCount) * 100}%`}}>
@@ -89,10 +85,8 @@ export default class Process extends React.Component {
                     <div class='item'>
                       <div class='content'>
                         <div class='header'>
-                          {(!this.state.isProcessed && this.state.received.length !== 0)
-                            ? 'Processing:'
-                            :  'Connecting ...'
-                          }
+                          {isEmpty(this.state.received) && 'Connecting ...' }
+                          {!this.state.isProcessed && !isEmpty(this.state.received)  && 'Processing'}
                           {this.state.isProcessed && 'Redirecting ...'}
                         </div>
                         <div class='description'>
@@ -115,6 +109,8 @@ export default class Process extends React.Component {
   }
 
   componentDidMount () {
+    document.title = 'Processing ...'
+
     // Listen to socket
     const socket = this.socket
 
@@ -168,6 +164,8 @@ export default class Process extends React.Component {
       debug && console.log('Socket (INFO):', 'Disconnected')
       if (!this.state.error){
         debug && console.log('Process (INFO):', 'Redirecting')
+        localStorage.setItem('showSettings', 'true')
+        localStorage.setItem('refetch', 'true')
         this.props.history.push(`/collection/${this.state.id}`)
       }
     })

@@ -32345,7 +32345,7 @@ a.ui.nag {
   border: 1px solid #404040;
   line-height: 1.4285em;
   max-width: 250px;
-  background: #FFFFFF;
+  background: #222425;
   padding: 0.833em 1em;
   font-weight: normal;
   font-style: normal;
@@ -32372,7 +32372,7 @@ a.ui.nag {
   content: '';
   width: 0.71428571em;
   height: 0.71428571em;
-  background: #FFFFFF;
+  background: #222425;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   z-index: 2;
@@ -32403,7 +32403,7 @@ a.ui.nag {
   font-size: 1rem;
   width: 0.71428571em;
   height: 0.71428571em;
-  background: #FFFFFF;
+  background: #222425;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   z-index: 2;
@@ -32424,7 +32424,7 @@ a.ui.nag {
   border: 1px solid #404040;
   line-height: 1.4285em;
   max-width: none;
-  background: #FFFFFF;
+  background: #222425;
   padding: 0.833em 1em;
   font-weight: normal;
   font-style: normal;
@@ -32442,7 +32442,7 @@ a.ui.nag {
   right: auto;
   bottom: 100%;
   left: 50%;
-  background: #FFFFFF;
+  background: #222425;
   margin-left: -0.07142857rem;
   margin-bottom: 0.14285714rem;
 }
@@ -32589,7 +32589,7 @@ a.ui.nag {
   right: auto;
   bottom: 100%;
   left: 50%;
-  background: #FFFFFF;
+  background: #222425;
   margin-left: -0.07142857rem;
   margin-bottom: 0.14285714rem;
 }
@@ -32724,25 +32724,25 @@ a.ui.nag {
 /* Arrow */
 
 [data-position~="bottom"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #222425;
   -webkit-box-shadow: -1px -1px 0px 0px #262626;
   box-shadow: -1px -1px 0px 0px #262626;
 }
 
 [data-position="left center"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #222425;
   -webkit-box-shadow: 1px -1px 0px 0px #262626;
   box-shadow: 1px -1px 0px 0px #262626;
 }
 
 [data-position="right center"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #222425;
   -webkit-box-shadow: -1px 1px 0px 0px #262626;
   box-shadow: -1px 1px 0px 0px #262626;
 }
 
 [data-position~="top"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #222425;
 }
 
 /* Inverted Arrow Color */
@@ -32980,16 +32980,16 @@ a.ui.nag {
 /* Arrow Color By Location */
 
 .ui.bottom.popup:before {
-  background: #FFFFFF;
+  background: #222425;
 }
 
 .ui.right.center.popup:before,
 .ui.left.center.popup:before {
-  background: #FFFFFF;
+  background: #222425;
 }
 
 .ui.top.popup:before {
-  background: #FFFFFF;
+  background: #222425;
 }
 
 /* Inverted Arrow Color */

@@ -1,12 +1,15 @@
 import React from 'react'
 import {hashHistory, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {pushOwns} from 'modules/user'
 import {randomNumber} from 'modules/utils'
 import isEmpty from 'lodash.isempty'
 import isArray from 'lodash.isarray'
 import isObject from 'lodash.isobject'
 import includes from 'lodash.includes'
 import {globalNotify} from 'actions/notify'
+
+const debug = process.env.NODE_ENV || false
 
 @withRouter
 @connect()
@@ -46,7 +49,7 @@ export default class Done extends React.Component {
     })
     .then((data) => {
       if (!data.success) throw new Error(data.message)
-      console.log('Load:', data.id)
+      debug && console.log('Load:', data.id)
       this.setState({isFetching: false, success: true})
 
       // Global Notify
@@ -56,9 +59,12 @@ export default class Done extends React.Component {
         type: 'success'
       }))
       this.props.history.push(`/process/${data.id}`)
+
+      // Set localStorage marking user as the owner of the collection
+      pushOwns(data.id)
     })
     .catch((err) => {
-      console.log(err.message)
+      debug && console.log(err.message)
       this.setState({isFetching: false, error: true, errorMessage: err.message})
 
       // Global Notify

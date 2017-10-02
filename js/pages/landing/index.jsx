@@ -4,9 +4,17 @@ import Typed from 'typed.js'
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal.js'
 import Load from 'components/load'
 
+const debug = process.env.NODE_ENV || false
+
 export default class Landing extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      stats: {
+        collections: 0,
+        movies: 0
+      }
+    }
   }
   render () {
     const style = {
@@ -20,13 +28,10 @@ export default class Landing extends React.Component {
             <Link to='/' class="header item">
               IMDBnator
             </Link>
-          </div>
-          <div class="right menu">
-            <a class="item" href="#features">
-              Features
-            </a>
             <div class="item">
-              <Link class="ui green button" to="/collection/ashwin">Demo</Link>
+              <div class="description">
+              Simple, free online movie cataloging.
+              </div>
             </div>
           </div>
         </div>
@@ -124,7 +129,7 @@ export default class Landing extends React.Component {
             </div>
           </div>
           <div class="ui hidden divider"></div>
-          <div class="row">
+          {/*<div class="row">
             <div class="seven wide middle aligned column">
               <div class="ui inverted black segment">
                 <h1 class="ui header">
@@ -141,7 +146,7 @@ export default class Landing extends React.Component {
                 <img src="https://semantic-ui.com/images/wireframe/square-image.png" />
               </div>
             </div>
-          </div>
+          </div>*/}
         </div>
 
         <div class="ui page grid" style={{paddingTop: '6em', paddingBottom:'6em'}}>
@@ -164,12 +169,12 @@ export default class Landing extends React.Component {
                     1.3M
                   </div>
                   <div class="label">
-                    Movies Scanned
+                    Titles Scanned
                   </div>
                 </div>
                 <div class="statistic">
                   <div class="value">
-                    150
+                    {52 + this.state.stats.collections}
                   </div>
                   <div class="label">
                     Collections today
@@ -177,10 +182,10 @@ export default class Landing extends React.Component {
                 </div>
                 <div class="statistic">
                   <div class="value">
-                    1K+
+                    {14500 + this.state.stats.movies}
                   </div>
                   <div class="label">
-                    Downloads
+                    Titles Today
                   </div>
                 </div>
               </div>
@@ -339,6 +344,22 @@ export default class Landing extends React.Component {
     var typed = new Typed($elem, {
       strings: ['your HDD.^500', 'a Website.^500', 'your Computer.^500'],
       typeSpeed: 100
+    })
+
+    fetch(`http://${API_HOST}/collection?date=0`, {
+      method: 'get',
+    })
+    .then(function (response) {
+      if (response.status !== 200) throw new Error(`API server ${response.status} status error.`)
+      return response.json()
+    })
+    .then(data => {
+      if (!data.success) throw new Error(data.message)
+      debug && console.log('Stats (INFO):', data)
+      this.setState({stats: data.stats})
+    })
+    .catch((err) => {
+      debug && console.log(err.message)
     })
   }
 }

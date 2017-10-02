@@ -5,19 +5,55 @@ Bugs
 import React from 'react'
 import {BrowserRouter, Route, Switch, Redirect, NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
+import isEmpty from 'lodash.isempty'
+import {checkOwns, pushOwns} from 'modules/user'
 
+import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal.js'
 import Add from './Add'
 import Movies from './Movies'
 import Errors from './Errors'
 import Settings from './Settings'
 
+@connect((store) => {
+  return {
+    id: store.fetch.collection.id,
+    secret: store.fetch.collection.secret
+  }
+})
 export default class Edit extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      doesOwn: checkOwns(props.id)
+    }
+  }
+  _checkSecret(event){
+    if (event.target.value === this.props.secret){
+      pushOwns(this.props.id)
+      this.setState({doesOwn: true})
+    }
+  }
   render () {
+    if (!this.state.doesOwn){
+      return(
+        <Modal open={true} basic size='small'>
+          <div class="header">Authorize</div>
+          <div class="content">
+            <div class="ui form">
+              <div class="field">
+                <label>Enter secret</label>
+                <input type="text" placeholder='bazgina!' onChange={this._checkSecret.bind(this)} />
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )
+    }
     return (
       <Switch>
         <Route exact path={`${this.props.match.url}/add`} component={Add} />
-        <Route exact path={`${this.props.match.url}/movies`} component={Movies} />
-        <Route exact path={`${this.props.match.url}/errors`} component={Errors} />
+        <Route exact path={`${this.props.match.url}/movies/:title?`} component={Movies} />
+        <Route exact path={`${this.props.match.url}/errors/:title?`} component={Errors} />
         <Route exact path={`${this.props.match.url}/settings`} component={Settings} />
       </Switch>
     )
@@ -91,7 +127,6 @@ class ClosestTitles extends React.Component {
 
   componentDidMount () {
     fetch(`http://${API_HOST}/process/search?input=${encodeURIComponent(this.state.title)}&index=tmdb&type=movie&mode=match`)
-    // fetch(`http://${API_HOST}/process/title/${this.state.title}?ranking=closest`)
       .then((response) => {
         if (response.status !== 200) throw new Error(`API server status error: ${response.status}`)
         return response.json()

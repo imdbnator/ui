@@ -10,7 +10,7 @@ import Pagination from 'components/pagination'
 import {PersonPoster} from 'components/posters'
 import {PeopleSidebar} from 'components/sidebars'
 
-const debug = false
+const debug = process.env.NODE_ENV || false
 let componentKey = 0
 
 @connect((store) => {

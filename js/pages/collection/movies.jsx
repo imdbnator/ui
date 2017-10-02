@@ -2,17 +2,18 @@ import React from 'react'
 import {withRouter,Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash.isempty'
+import includes from 'lodash.includes'
 import isEqual from 'lodash.isequal'
 
-import Pagination from 'components/pagination'
+import Visibility from 'semantic-ui-react/dist/commonjs/behaviors/Visibility/Visibility.js'
 import {Loading, Dimmer} from 'components/notifications'
-import {DefaultPoster, MoviePoster} from 'components/posters'
+import {MoviePoster} from 'components/posters'
 import {MovieSidebar} from 'components/sidebars'
 
-import {closestByClass} from 'modules/utils'
+import {randomNumber, closestByClass} from 'modules/utils'
 import {sequentialFilter, sortMovies} from 'modules/collection'
 
-const debug = false
+const debug = process.env.NODE_ENV || false
 let componentKey = 0
 
 @withRouter
@@ -31,6 +32,23 @@ export default class Movies extends React.Component{
       sort: {},
       filtersQueue: [],
       sidebarVisible: false,
+      visibility: {
+        direction: 'none',
+        height: 0,
+        width: 0,
+        topPassed: false,
+        bottomPassed: false,
+        pixelsPassed: 0,
+        percentagePassed: 0,
+        topVisible: false,
+        bottomVisible: false,
+        fits: false,
+        passing: false,
+        onScreen: false,
+        offScreen: false,
+      },
+      placeholder: (!isEmpty(props.movies)) ? props.movies[randomNumber(0, props.movies.length -1)].input : 'Search title ...',
+      searchValue: "",
       page: 1
     }
 
@@ -49,7 +67,7 @@ export default class Movies extends React.Component{
       if (prevState.sort.field === field){
         return {sort: {field, order: (prevState.sort.order === 'asc') ? 'desc' : 'asc'}}
       }
-      return {sort: {field, order: (['year,rating,votes,runtime,popularity,revenue,budget,size'].indexOf(field) > -1) ? 'desc' : 'asc'}}
+      return {sort: {field, order: includes(['year','rating','votes','runtime','popularity','revenue','budget','size'], field) ? 'desc' : 'asc'}}
     })
   }
 
@@ -63,10 +81,7 @@ export default class Movies extends React.Component{
 
   _handleSearch(event){
     const value = event.target.value
-    this.setState((prevState) => {
-      return {
-      }
-    })
+    this.setState({searchValue: value})
   }
 
   _setFilters(prevFiltersQueue){
@@ -83,8 +98,19 @@ export default class Movies extends React.Component{
     this.setState({filtersQueue})
   }
 
+  _toggleSidebar(){
+    this.setState(prevState => {
+      return {sidebarVisible: !prevState.sidebarVisible}
+    })
+  }
+
   _sidebarFiltersUpdate({filtersQueue}){
     this.props.history.push(this.props.match.path.replace(':filtersQueue?',JSON.stringify(filtersQueue)))
+  }
+
+  _handleVisibility(event, {calculations}){
+    this.setState({visibility: calculations})
+    console.log('Caculations:',calculations);
   }
 
   render() {
@@ -105,10 +131,15 @@ export default class Movies extends React.Component{
     movies = (filtersExist) ? sequentialFilter({movies}, {filtersQueue: this.state.filtersQueue, onlySection: 'movies', debug}).movies : movies
     movies = (sortExists) ? sortMovies(movies, this.state.sort) : movies
 
+    // Filter further if searchValue
+    const searchValue = this.state.searchValue.toLowerCase()
+    const searchExists = !isEmpty(searchValue)
+    movies = (searchExists) ? movies.filter(a => includes(a.title.toLowerCase(),searchValue) || includes(a.input.toLowerCase(),searchValue) || includes(a.year.toString(),searchValue)) : movies
+
     debug && console.log('filtersQueue (INFO):', this.state.filtersQueue);
 
     const page = this.state.page
-    const perPage = 80
+    const perPage = 100
     const total = movies.length
 
     let Message = []
@@ -134,10 +165,42 @@ export default class Movies extends React.Component{
 
     return (
       <div class="ui padded divided grid">
+        <div class="one column row">
+          <div class="ui secondary container menu">
+            <div class="left menu">
+              <a class="header item" onClick={this._handleOrderClick}>
+                {this.state.sort.order === 'asc'
+                  ? <i class={`${(includes(['year','rating','votes','runtime','popularity','revenue','budget','size'], this.state.sort.field)) ? 'numeric' :'alphabet'} sort ascending icon`}></i>
+                  : <i class={`${(includes(['year','rating','votes','runtime','popularity','revenue','budget','size'], this.state.sort.field)) ? 'numeric' :'alphabet'} sort descending icon`}></i>
+                }
+                Sort by
+              </a>
+              <a class={`${(this.state.sort.field === 'entryid') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="entryid"><i class="hashtag icon"></i>Default</a>
+              <a class={`${(this.state.sort.field === 'title') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="title"><i class="font icon"></i>Title</a>
+              <a class={`${(this.state.sort.field === 'rating') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="rating"><i class="yellow star icon"></i>Rating</a>
+              <a class={`${(this.state.sort.field === 'year') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="year"><i class="calendar icon"></i>Year</a>
+              <a class={`${(this.state.sort.field === 'runtime') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="runtime"><i class="clock icon"></i>Runtime</a>
+              <a class={`${(this.state.sort.field === 'votes') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="votes"><i class="users icon"></i>Votes</a>
+              <a class={`${(this.state.sort.field === 'size') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="size"><i class="file icon"></i>File Size</a>
+            </div>
+            <div class="right menu">
+              <a class="item" onClick={this._toggleSidebar.bind(this)}><i class="options icon"></i> Filter by</a>
+              <div class="item">
+                <div class="ui icon transparent input">
+                  <input type="text" placeholder={this.state.placeholder} class="prompt" onChange={this._handleSearch.bind(this)}/>
+                  <i class="search icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <MovieSidebar visible={this.state.sidebarVisible} onFiltersChange={this._sidebarFiltersUpdate.bind(this)}/>
         <div class="no-padding row">
+        {/*<Visibility onUpdate={this._handleVisibility.bind(this)} as={({children}) => <div class="no-padding row">{children}</div>}>*/}
           { Message }
           { Posters }
+        {/*</Visibility>*/}
         </div>
       </div>
     );

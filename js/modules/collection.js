@@ -46,6 +46,8 @@ function formatCollection (prevCollection) {
   const formattedErrors = []
   const formattedFormats = []
 
+  let trailersCount = 0
+  let postersCount = 0
   let oscars = 0
   let hds = 0
   let blurays = 0
@@ -59,13 +61,13 @@ function formatCollection (prevCollection) {
 
   // Iterate over entries and populate movies
   for (let i = 0; i < entries.length; i++) {
-    const { entryid, input, guesser, search, info, ignore } = entries[i]
+    const { entryid, input, guesser, search, info, ignore, modified } = entries[i]
     if (ignore) continue
 
     size.total += input.size
 
     // If movie not found
-    if (!search.found) {
+    if (!search.found && !modified) {
       formattedErrors.push({
         entryid,
         input: input.name,
@@ -74,7 +76,7 @@ function formatCollection (prevCollection) {
       continue
     }
 
-    const { imdbid, year, rating, votes, genres, keywords, cast, crew, awards, language, poster, backdrop } = info
+    const { imdbid, year, rating, votes, genres, keywords, cast, crew, awards, language, poster, backdrop, trailers } = info
 
     // Check if movie is unique. If not, push into duplicates row.
     if (imdbid in uniqueIMDBids) {
@@ -90,6 +92,10 @@ function formatCollection (prevCollection) {
       })
       continue
     }
+
+    // Check if poster, trailer is available
+    if (!isEmpty(poster)) postersCount += 1
+    if (!isEmpty(trailers)) trailersCount += 1
 
     // Process info
     if (isNumber(year)) {
@@ -186,10 +192,11 @@ function formatCollection (prevCollection) {
     }
 
     if (!isEmpty(keywords)) {
+      const stopWords = ['duringcreditsstinger', 'aftercreditsstinger']
       for (let i = 0; i < keywords.length; i++) {
+        if (includes(stopWords, keywords[i])) continue
         const keyword = keywords[i]
         const index = formattedKeywords.map(a => a.name).indexOf(keyword)
-
         if (index > -1) {
           formattedKeywords[index].count += 1
           if (formattedKeywords[index].titles.length < 5) {
@@ -277,12 +284,13 @@ function formatCollection (prevCollection) {
     uniqueIMDBids[imdbid] = entryid
     formattedMovies.push(Object.assign({
       entryid,
+      modified,
       input: input.name,
       path: input.path,
-      guess: (guesser.found) ? guesser.guess.title : 'Was unable to guess.',
+      guess: (guesser.found) ? guesser.guess.title : false,
       size: input.size,
       type: input.type,
-      format: (guesser.found) ? ((guesser.guess.format) ? guesser.guess.format : null) : 'Was unable to guess.'
+      format: (guesser.found) ? ((guesser.guess.format) ? guesser.guess.format : null) : false
     }, info))
   }
 
@@ -308,6 +316,8 @@ function formatCollection (prevCollection) {
     keywords: formattedKeywords.length,
     oscars,
     blurays,
+    trailers: trailersCount,
+    posters: postersCount,
     hds,
     size: {
       total: formatBytes(size.total),
@@ -327,7 +337,7 @@ function formatCollection (prevCollection) {
   overview.years.sort((a, b) => a.name - b.name)
   overview.genres = cloneDeep(formattedGenres).sort((a, b) => b.count - a.count).slice(0, 10)
   overview.languages = formattedLanguages.sort((a, b) => b.count - a.count).slice(0, 10)
-  overview.keywords = formattedKeywords.slice(0, 20)
+  overview.keywords = formattedKeywords.sort((a,b) => b.count - a.count).slice(0, 20)
   collection['overview'] = overview
 
   return collection
