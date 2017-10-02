@@ -61,7 +61,7 @@ config = {
 
 // Set Global variables
 config.plugins.push(new webpack.DefinePlugin({
-  'process.env': {NODE_ENV: process.env.NODE_ENV},
+  'process.env': {NODE_ENV: process.env.NODE_ENV || 'debug'},
   API_HOST: JSON.stringify('localhost:8081')
 }))
 
