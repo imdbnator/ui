@@ -13,7 +13,7 @@ import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown.
 import {countryOptions} from 'utils/countries'
 import {sequentialFilter} from 'modules/collection'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 
 @connect((store) => {
   return {

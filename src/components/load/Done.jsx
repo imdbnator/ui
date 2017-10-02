@@ -9,7 +9,7 @@ import isObject from 'lodash.isobject'
 import includes from 'lodash.includes'
 import {globalNotify} from 'actions/notify'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 
 @withRouter
 @connect()

@@ -22,7 +22,7 @@ import Discover from './discover'
 import Search from './search'
 import Edit from './edit'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 
 @connect((store) => {
   return {

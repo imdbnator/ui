@@ -4,7 +4,7 @@ import Typed from 'typed.js'
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal.js'
 import Load from 'components/load'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 
 export default class Landing extends React.Component {
   constructor (props) {

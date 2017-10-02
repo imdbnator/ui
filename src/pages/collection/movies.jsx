@@ -13,7 +13,7 @@ import {MovieSidebar} from 'components/sidebars'
 import {randomNumber, closestByClass} from 'modules/utils'
 import {sequentialFilter, sortMovies} from 'modules/collection'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 let componentKey = 0
 
 @withRouter

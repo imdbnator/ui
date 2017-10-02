@@ -5,7 +5,7 @@ import {pushOwns} from 'modules/user'
 import ClipboardButton from 'react-clipboard.js';
 import {closestByClass} from 'modules/utils'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 
 export default class Settings extends React.Component {
   constructor(props){

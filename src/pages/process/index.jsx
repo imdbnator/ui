@@ -11,7 +11,7 @@ import {getInitials} from 'modules/utils'
 import {Loading, Dimmer} from 'components/notifications'
 import {DefaultPoster} from 'components/posters'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 
 @withRouter
 @connect()

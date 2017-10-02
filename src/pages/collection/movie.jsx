@@ -14,7 +14,7 @@ import {formatBytes} from 'modules/utils'
 import {DefaultPoster} from 'components/posters'
 import {Loading, Dimmer} from 'components/notifications'
 
-const debug = process.env.NODE_ENV === "dev"
+const debug = process.env.NODE_ENV !== "production"
 let componentKey = 0
 
 @connect((store) => {
