@@ -2,7 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash.isempty'
+import includes from 'lodash.includes'
 
+import {randomNumber} from 'modules/utils'
 import {sequentialFilter} from 'modules/collection'
 
 import {Loading} from 'components/notifications'
@@ -25,9 +27,29 @@ export default class People extends React.Component {
     this.state = {
       isLoading: true,
       filtersQueue: [],
-      sidebarVisible: true,
+      sidebarVisible: false,
+      placeholder: (!isEmpty(props.people)) ? props.people[randomNumber(0, props.people.length -1)].name : 'Search title ...',
+      searchValue: "",
       page: 1
     }
+
+    this._handleSearch = this._handleSearch.bind(this)
+    this._handlePaginationClick = this._handlePaginationClick.bind(this)
+  }
+
+  _toggleSidebar(){
+    this.setState(prevState => {
+      return {sidebarVisible: !prevState.sidebarVisible}
+    })
+  }
+
+  _handleSearch(event){
+    const value = event.target.value
+    this.setState({searchValue: value, page: 1})
+  }
+
+  _handlePaginationClick(event){
+    this.setState({page: parseInt(event.target.getAttribute('data-page'))});
   }
 
   _setFilters(prevFiltersQueue){
@@ -41,7 +63,7 @@ export default class People extends React.Component {
     } catch (e) {
       filtersQueue = []
     }
-    this.setState({filtersQueue})
+    this.setState({filtersQueue, page: 1})
   }
 
   _sidebarFiltersUpdate({filtersQueue}){
@@ -65,6 +87,11 @@ export default class People extends React.Component {
     people = (filtersExist) ? sequentialFilter({people}, {filtersQueue: this.state.filtersQueue, onlySection: 'people', debug}).people : people
 
     debug && console.log('filtersQueue (INFO):', this.state.filtersQueue);
+
+    // Filter further if searchValue
+    const searchValue = this.state.searchValue.toLowerCase()
+    const searchExists = !isEmpty(searchValue)
+    people = (searchExists) ? people.filter(a => includes(a.name.toLowerCase(),searchValue)) : people
 
     const page = this.state.page
     const perPage = 80
@@ -92,12 +119,27 @@ export default class People extends React.Component {
 
     return (
       <div class="ui padded grid">
+        <div class="one column row">
+          <div class="ui secondary fluid menu">
+            <Pagination addClass="left menu" activePage={page} itemsPerPage={perPage} totalItems={total} dispatch={this._handlePaginationClick}>
+              <div class="item">Showing {section[0]} - {section[1]} of {total} people</div>
+            </Pagination>
+            <div class="right menu">
+              <a class="item" onClick={this._toggleSidebar.bind(this)}><i class="options icon"></i> Filter</a>
+              <div class="item">
+                <div class="ui icon transparent input">
+                  <input type="text" placeholder={this.state.placeholder} class="prompt" onChange={this._handleSearch.bind(this)}/>
+                  <i class="search icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <PeopleSidebar visible={this.state.sidebarVisible} onFiltersChange={this._sidebarFiltersUpdate.bind(this)}/>
           <div class="no-padding row">
             { Message }
             { Posters }
           </div>
-          {/*<Pagination addClass="left menu" activePage={page} itemsPerPage={perPage} totalItems={total} dispatch={this._handlePaginationClick}/>*/}
       </div>
     );
   }

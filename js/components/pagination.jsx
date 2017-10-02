@@ -22,7 +22,10 @@ export default function Pagination (props) {
   }
 
   if (finalPage === 1) {
-    return (null)
+    return (
+    <div class={props.addClass}>
+      {props.children}
+    </div>)
   }
 
   // Double left and Single left page arrows
@@ -94,6 +97,7 @@ export default function Pagination (props) {
 
   return (
     <div class={props.addClass}>
+      {props.children}
       { Items }
     </div>
   )

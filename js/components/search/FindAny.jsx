@@ -102,9 +102,9 @@ export default class FindAny extends React.Component {
           'type': type,
           'title': title,
           'description': (year) ? year.toString() : 'XXXX',
-          'image': (poster) ? poster : null,
+          'image': (poster) ? `https://image.tmdb.org/t/p/w45/${poster}` : null,
           'price': (rating) ? rating.toFixed(1): 'NA',
-          'renderer': this._resultRenderer
+          // 'renderer': this._resultRenderer
         }
       })
     }
@@ -116,8 +116,8 @@ export default class FindAny extends React.Component {
           'type': type,
           'title': name,
           'description': `found in ${count} movies`,
-          'image': (poster) ? poster : null,
-          'renderer': this._resultRenderer
+          'image': (poster) ? `https://image.tmdb.org/t/p/w45/${poster}` : null,
+          // 'renderer': this._resultRenderer
         }
       })
     }
@@ -128,7 +128,7 @@ export default class FindAny extends React.Component {
           'type': type,
           'title': name,
           'description': `found in ${count} movies`,
-          'renderer': this._resultRenderer
+          // 'renderer': this._resultRenderer
         }
       })
     }

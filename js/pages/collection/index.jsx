@@ -93,7 +93,7 @@ export default class Collection extends React.Component {
     }
 
     if (!this.props.processed){
-      return(<Dimmer header="Oops!" message={`Collection has not been processed yet. Click <a href="/process/${this.state.id}?reprocess=true">here</a> to process it.`} icon="red frown icon"/>)
+      return(<Dimmer header="Oops!" message={`Collection has not been processed yet. Click <a href="/process/${this.state.id}?reprocess=true">here</a> to re-process it.`} icon="red frown icon"/>)
     }
 
     if (this.state.showSettings){
@@ -220,9 +220,9 @@ export default class Collection extends React.Component {
 
       this.setState({isFetching: false})
     })
-    // .catch((err) => {
-    //   this.setState({isFetching: false, error: true, errorStatus: (err.status) ? err.status: 160, errorMessage: `API Server (ERROR): ${(err.message) ? err.message : err}`})
-    //   return
-    // })
+    .catch((err) => {
+      this.setState({isFetching: false, error: true, errorStatus: (err.status) ? err.status: 160, errorMessage: `API Server (ERROR): ${(err.message) ? err.message : err}`})
+      return
+    })
   }
 }

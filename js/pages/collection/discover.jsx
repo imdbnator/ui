@@ -17,6 +17,7 @@ const debug = process.env.NODE_ENV || false
 
 @connect((store) => {
   return {
+    overview: store.fetch.collection.overview,
     movies: store.fetch.collection.movies,
     genres: store.fetch.collection.genres,
     keywords: store.fetch.collection.keywords,
@@ -65,12 +66,11 @@ export default class Discover extends React.Component {
   }
 
   _handleCheckBox(event, {field, value}){
-    console.log('HERE');
     const $element = event.target
     const checked = $element.checked
 
     let thisFilter = {}
-    if (isChecked){
+    if (checked){
       switch (field) {
         case 'awards':
         case 'format':
@@ -186,14 +186,13 @@ export default class Discover extends React.Component {
     for (let field in filters) {
       if (!isEmpty(filters[field])) filtersQueue.push(filters[field])
     }
-    console.log(this.state.checkedStates);
-    debug && console.log(filtersQueue)
 
     const filteredMovies = sequentialFilter({movies}, {filtersQueue, onlySection: 'movies'}).movies
     const count = filteredMovies.length
 
     // Sort for getting the best movie
     filteredMovies.sort((a,b) => (b.rating - a.rating))
+    console.log(filteredMovies);
     const bestMovie = filteredMovies[0]
 
     const labelStyle = {
@@ -207,7 +206,9 @@ export default class Discover extends React.Component {
 
     return (
       <div class='ui padded stackable grid' style={{minHeight: '100%'}}>
-        <div class="background" style={{backgroundImage: `url(http://image.tmdb.org/t/p/w600/${(bestMovie.backdrop) ? bestMovie.backdrop : ''})`}}></div>
+        {!isEmpty(filteredMovies) &&
+          <div class="background" style={{backgroundImage: `url(${(bestMovie.backdrop) ? `http://image.tmdb.org/t/p/w600/${bestMovie.backdrop}` : ''})`}}></div>
+        }
         <div class="row" style={{paddingTop: '4em'}}>
           <div class="eight wide mobile seven wide tablet five wide computer center aligned column">
             {!isEmpty(filteredMovies) &&
@@ -285,7 +286,7 @@ export default class Discover extends React.Component {
                     />
                 </div>
               </div>
-              <div class="fields">
+              {/*<div class="fields">
                 <div class="eight wide field">
                   <label>Plot Keywords</label>
                     <Dropdown
@@ -298,7 +299,7 @@ export default class Discover extends React.Component {
                       placeholder='love, sex'
                     />
                 </div>
-              </div>
+              </div>*/}
               <div class="grouped fields">
                 <label>Notable Movie</label>
                 <div class="field">
@@ -344,16 +345,9 @@ export default class Discover extends React.Component {
           if (a.name < b.name) return -1
           return +1
         }).map((a,i) => {return {key:i, text: a.name, value: a.name}}),
-        year: [
-          { key: 1, text: '2010s', value: 2010 },
-          { key: 2, text: '2000s', value: 2010 },
-          { key: 3, text: '1990s', value: 1990 },
-          { key: 4, text: '1980s', value: 1980 },
-          { key: 5, text: '1970s', value: 1970 },
-          { key: 7, text: '1960s', value: 1960 },
-          { key: 8, text: '1950s', value: 1950 },
-          { key: 9, text: '1940s', value: 1940 }
-        ],
+        year: this.props.overview.years.map((a,i) => {
+          return {key: i, text: a.name + 's', value: a.name}
+        }),
         runtime: [
           { key: 1, text: '< 30 minutes', value: 'le,30' },
           { key: 2, text: '> 30 minutes', value: 'ge,30' },

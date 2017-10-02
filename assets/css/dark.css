@@ -6,7 +6,7 @@ input[type="file"] {
   display: none;
 }
 
-.ui.search>.results {
+.ui.category.search>.results {
   left: auto;
   right: 0;
 }

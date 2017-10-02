@@ -98,9 +98,9 @@ export default class EditBox extends React.Component {
         'tmdbid': _source.tmdbid,
         'title': _source.title,
         'description': (_source.year) ? _source.year.toString() : 'XXXX',
-        'image': (_source.poster) ? _source.poster : null,
+        'image': (_source.poster) ? (poster) ? `https://image.tmdb.org/t/p/w45/${_source.poster}` : null: null,
         'price': _source.rating.toFixed(1),
-        'renderer': this._resultRenderer
+        // 'renderer': this._resultRenderer
       }
     })
   }

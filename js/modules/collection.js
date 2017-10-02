@@ -218,7 +218,7 @@ function formatCollection (prevCollection) {
           if (formattedPeople[index].jobs.indexOf(job) === -1) {
             formattedPeople[index].jobs.push(job)
           }
-          if (formattedPeople[index].titles.length < 5) {
+          if (formattedPeople[index].titles.length < 10) {
             formattedPeople[index].titles.push(entryid)
           }
           continue
@@ -238,7 +238,7 @@ function formatCollection (prevCollection) {
           if (formattedPeople[index].jobs.indexOf(job) === -1) {
             formattedPeople[index].jobs.push(job)
           }
-          if (formattedPeople[index].titles.length < 5) {
+          if (formattedPeople[index].titles.length < 10) {
             formattedPeople[index].titles.push(entryid)
           }
           continue

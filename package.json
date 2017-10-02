@@ -29,7 +29,7 @@
     "redux-logger": "^3.0.6",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.8.2"
+    "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
     "chart.js": "^2.7.0",
@@ -50,15 +50,15 @@
     "lodash.uniqby": "^4.7.0",
     "lodash.uniqwith": "^4.5.0",
     "query-string": "^5.0.0",
-    "react": "^15.6.1",
+    "react": "^16.0.0",
     "react-chartjs-2": "^2.6.2",
     "react-clipboard.js": "^1.1.2",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.0.0",
     "react-notification": "^6.8.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "semantic-ui-react": "^0.74.1",
+    "semantic-ui-react": "^0.74.2",
     "socket.io-client": "^2.0.3",
     "typed.js": "^2.0.6"
   }

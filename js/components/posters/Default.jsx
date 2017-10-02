@@ -4,6 +4,8 @@ import isEmpty from 'lodash.isempty'
 import includes from 'lodash.includes'
 import {getInitials} from 'modules/utils'
 
+
+
 function Placeholder (props) {
   const className = (props.className) ? props.className : 'ui image'
   const fontSize = (props.fontSize) ? props.fontSize : (15 / 154) * 100
@@ -30,6 +32,24 @@ class TMDBPoster extends React.Component {
       isLoading: true
     }
   }
+
+  _fadeIn(element) {
+    let opacity = 0.1;  // initial opacity
+    element.style.display = 'block';
+    let timer = setInterval(function () {
+        if (opacity >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = opacity;
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity += opacity * 0.1;
+    }, 10);
+  }
+
+  _handleImageLoad(event){
+    this._fadeIn(event.target)
+  }
+
   _handleLoad(){
     this.setState({isLoading: false})
   }
@@ -38,7 +58,8 @@ class TMDBPoster extends React.Component {
     let className = (this.props.className) ? this.props.className : 'ui image'
     className = (this.props.isFluid) ?  className + ' fluid' : className
 
-    return (<img src={src} class={className} alt={this.props.alt} onLoad={this._handleLoad.bind(this)}/>)
+    // return (<img src={src} class={className} style={{display: 'none'}} alt={this.props.alt} onLoad={this._handleImageLoad.bind(this)}/>)
+    return (<img src={src} class={className}alt={this.props.alt} />)
   }
 }
 

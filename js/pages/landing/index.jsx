@@ -215,13 +215,20 @@ export default class Landing extends React.Component {
                         <p>We dont't stream or index movies. This site helps discovering movies from your scattered collection. Typically, this can be used by someone who wishes to discover movies from his/her or friend's collection before watching your next film!</p>
                       </div>
                       <div class="item">
-                        <div class="header">How can I edit my collection?</div>
+                        <div class="header">How can I edit my collection later on?</div>
                         <p>Once you've created a list, we store a cookie in your browser that recognizes that you own a collection. Further, you will be given a secret key with which you can modify your collection.</p>
                       </div>
                       <div class="item">
-                        <div class="header">Where is my collection I made a few weeks back?</div>
-                        <p>For latest beta version which released on 27-9-2017 , we revamped the whole website Frontend and Backend. We had to abandon the old database stucture and its data. Because of which we were unable to import your old collection into the current version. It typically takes around 30 seconds to process a collection, so we suggest you create a fresh catalog by browsing your collection again.</p>
-                        <p>If you wish to recover some old data from your collection then please send an email with your collection ID to <a href="mailto:imdbnator@gmail.com">imdbnator@gmail.com</a> and we'll recover the collection for you :)</p>
+                        <div class="header">How do I correct incorrect movie matches?</div>
+                        <p>If you've created a collection, you will have the ability to edit your collection at a later time by clicking the "Edit" tab that is found in the top right corner of your collection.</p>
+                      </div>
+                      <div class="item">
+                        <div class="header">When will there be support for TV Series & Episodes?</div>
+                        <p>As of now, we only have the ability to detect movies from your file. The TV Series and Episode detection is one of the immediate features that we are working on. However, the development of this feature will only continue based on user feedback.</p>
+                      </div>
+                      <div class="item">
+                        <div class="header">Movies from which countries do you support?</div>
+                        <p>Our databases includes over 400K+ international titles including English, Dutch, French, Italian, Russian, Hindi, Persian and more. However, translations of original titles are not fully supported and might fetch movie with quite a few errors.</p>
                       </div>
                       <div class="item">
                         <div class="header">How do I create an account?</div>
