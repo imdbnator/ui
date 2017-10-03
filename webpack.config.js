@@ -7,8 +7,8 @@ Notes
 const webpack = require('webpack')
 const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const env = process.env.NODE_ENV || 'dev'
-const api = process.env.API_HOST || 'localhost:8081'
+const env = process.env.NODE_ENV || 'production'
+const api = process.env.API_HOST || '139.59.92.196'
 const protocol = process.env.PROTOCOL || 'http://'
 
 console.log('env:', env);
