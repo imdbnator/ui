@@ -353,7 +353,7 @@ export default class Landing extends React.Component {
       typeSpeed: 100
     })
 
-    fetch(`//${process.env.API_HOST}/collection?date=0`, {
+    fetch(`//${process.env.API_HOST}/collection?date=1`, {
       method: 'get',
     })
     .then(function (response) {
