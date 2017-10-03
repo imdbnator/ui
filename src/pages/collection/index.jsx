@@ -87,13 +87,13 @@ export default class Collection extends React.Component {
       return(<Loading message="Loading collection..." />)
     }
 
+    if (!this.props.processed){
+      return(<Dimmer header="Oops!" message={`Collection has been processed on the older version. Click <a href="/process/${this.props.id}?reprocess=true">here</a> to re-process it.`} icon="red frown icon"/>)
+    }
+
     if (this.state.error){
       if (this.state.errorStatus === 160) return(<Dimmer header="Server error" message={this.state.errorMessage} icon="red frown icon"/>)
       if (this.state.errorStatus === 170) return(<Dimmer header="Oops!" message="Collection ID does not exist. Create a <a href='/'>new</a> collection?" icon="red frown icon"/>)
-    }
-
-    if (!this.props.processed){
-      return(<Dimmer header="Oops!" message={`Collection has not been processed yet. Click <a href="/process/${this.state.id}?reprocess=true">here</a> to re-process it.`} icon="red frown icon"/>)
     }
 
     if (this.state.showSettings){
