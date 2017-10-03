@@ -22,7 +22,7 @@ config = {
   output: {
     path: path.resolve(__dirname, 'assets'),
     publicPath: '/assets/',
-    filename: 'src/[name].bundle.js'
+    filename: 'js/[name].bundle.js'
   },
   module: {
     loaders: [{
