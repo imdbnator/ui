@@ -4,8 +4,8 @@
   "description": "IMDBnator UI based on react.",
   "main": "main.js",
   "scripts": {
-    "dev": "NODE_ENV=dev API_HOST=localhost:8081 webpack-dev-server --inline --hot",
-    "bundle": "webpack -p",
+    "dev": "webpack-dev-server --inline --hot",
+    "bundle": "NODE_ENV=production API_HOST=139.59.92.196:80 webpack -p",
     "build": "npm install && npm run bundle"
   },
   "keywords": [
