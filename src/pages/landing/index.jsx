@@ -39,6 +39,16 @@ export default class Landing extends React.Component {
 
         <div class='ui text container grid' style={{marginTop: '4rem', minHeight: '100vh'}}>
           <div class='row'>
+            <div class="column">
+              <div class="ui tiny success message">
+                <div class="header">Update (4-10-2017)</div>
+                <p>
+                  There were many bug reports after upgrading the website. We have fixed them to the best of our knowledge, please report if you come across any more bugs.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <Load addClass='column'>
               <h1 class='ui center aligned inverted header'>
                 Catalog movies on <span id='typed'>a Website.</span>
@@ -174,7 +184,7 @@ export default class Landing extends React.Component {
                 </div>
                 <div class="statistic">
                   <div class="value">
-                    {52 + this.state.stats.collections}
+                    {54 + this.state.stats.collections}
                   </div>
                   <div class="label">
                     Collections today
@@ -182,7 +192,7 @@ export default class Landing extends React.Component {
                 </div>
                 <div class="statistic">
                   <div class="value">
-                    {14500 + this.state.stats.movies}
+                    {14204 + this.state.stats.movies}
                   </div>
                   <div class="label">
                     Titles Today

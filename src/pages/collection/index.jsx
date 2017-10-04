@@ -83,7 +83,6 @@ export default class Collection extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.state.isFetching){
       return(<Loading message="Loading collection..." />)
     }
