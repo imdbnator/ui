@@ -38,7 +38,7 @@ config = {
   plugins: [],
   devServer: {
     // host: '192.168.0.6',
-    port: 3000,
+    port: 8000,
     contentBase: __dirname,
     inline: true,
     compress: true,
