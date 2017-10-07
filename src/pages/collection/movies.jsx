@@ -30,6 +30,7 @@ export default class Movies extends React.Component{
     this.state = {
       isLoading: true,
       sort: {},
+      view: 'posters',
       filtersQueue: [],
       sidebarVisible: false,
       visibility: {
@@ -175,6 +176,14 @@ export default class Movies extends React.Component{
               <div class="item">Showing {section[0]} - {section[1]} of {total} movies</div>
             </Pagination>
             <div class="right menu">
+              <div class="ui simple dropdown item">
+                <i class="eye icon"></i>
+                Change View
+              <div class="menu" style={{marginTop: 0}}>
+                <a class="item">Posters</a>
+                <a class="item">Table</a>
+              </div>
+              </div>
               <div class="ui simple dropdown item" onClick={this._handleOrderClick}>
                 {this.state.sort.order === 'asc'
                   ? <i class={`${(includes(['year','rating','votes','runtime','popularity','revenue','budget','size'], this.state.sort.field)) ? 'numeric' :'alphabet'} sort ascending icon`}></i>
@@ -191,7 +200,7 @@ export default class Movies extends React.Component{
                   <a class={`${(this.state.sort.field === 'size') ? 'active item' : 'item'}`} onClick={this._handleSortClick} data-field="size"><i class="file icon"></i>File Size</a>
                 </div>
               </div>
-              <a class="item" onClick={this._toggleSidebar.bind(this)}><i class="options icon"></i> Filter</a>
+              <a class={`${(this.state.sidebarVisible) ? 'active item' : 'item'}`} onClick={this._toggleSidebar.bind(this)}><i class="options icon"></i> Filter</a>
               <div class="item">
                 <div class="ui icon transparent input">
                   <input type="text" placeholder={this.state.placeholder} class="prompt" onChange={this._handleSearch.bind(this)}/>

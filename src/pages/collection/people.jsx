@@ -125,7 +125,7 @@ export default class People extends React.Component {
               <div class="item">Showing {section[0]} - {section[1]} of {total} people</div>
             </Pagination>
             <div class="right menu">
-              <a class="item" onClick={this._toggleSidebar.bind(this)}><i class="options icon"></i> Filter</a>
+              <a class={`${(this.state.sidebarVisible) ? 'active item' : 'item'}`} onClick={this._toggleSidebar.bind(this)}><i class="options icon"></i> Filter</a>
               <div class="item">
                 <div class="ui icon transparent input">
                   <input type="text" placeholder={this.state.placeholder} class="prompt" onChange={this._handleSearch.bind(this)}/>
