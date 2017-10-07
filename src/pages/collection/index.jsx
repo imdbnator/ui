@@ -163,7 +163,7 @@ export default class Collection extends React.Component {
     // Collection is fetched from server when
     // It has been loaded 3 times, or it's force 'refetched'  or if collection is Empty
     // If conditions are not met, then it will fallback to localstoage
-    const sources = ['imdb', 'tmdb']
+    const sources = ['tmdb', 'imdb']
     const localCollection = !isEmpty(localStorage.getItem('collection')) ? JSON.parse(localStorage.getItem('collection')) : {}
     const shouldRefetch = typeof Storage !== 'undefined'
                                 && !isEmpty(localCollection)

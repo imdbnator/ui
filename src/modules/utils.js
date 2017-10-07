@@ -55,12 +55,22 @@ function getInitials (string) {
   return initials
 }
 
+function capitalize (string) {
+  return string.replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase() })
+}
+
+function comma (string) {
+  return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
 module.exports = {
   simpleHash,
   randomNumber,
   formatBytes,
   closestByClass,
-  getInitials
+  getInitials,
+  capitalize,
+  comma
 }
 
 // const mockCollection = require('../samples/collection')

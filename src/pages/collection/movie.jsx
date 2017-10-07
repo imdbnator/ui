@@ -66,7 +66,7 @@ export default class Movie extends React.Component {
     }
 
     // Gather movie fields
-    const { entryid, input, guess, size, title, year, rating, votes, runtime, genres, cast, crew, plot, language, keywords, awards, poster, backdrop, trailers } = movie
+    const { entryid, imdbid, tmdbid, input, guess, size, title, year, rating, votes, runtime, genres, cast, crew, plot, language, keywords, awards, poster, backdrop, trailers } = movie
 
     // Get Cast & Crew details
     const Cast1 = []
@@ -121,7 +121,7 @@ export default class Movie extends React.Component {
       for (let i = 0; i < results.length && i < maxSimilar; i++) {
         let { entryid, score, scores } = results[i]
         let { title, poster } = movies.find(movie => movie.entryid === entryid)
-        SimilarMovies.push(<DefaultPoster href={this.props.match.path.replace(':entryid', entryid)} className="ui image" posterPath={poster} tmdbSize="w92" alt={title} key={componentKey++}/>)
+        SimilarMovies.push(<DefaultPoster href={this.props.match.path.replace(':entryid', entryid)} posterPath={poster} tmdbSize="w92" alt={title} key={componentKey++}/>)
       }
     }
 
@@ -174,6 +174,14 @@ export default class Movie extends React.Component {
                   keywords.join(', ')
                 ]
               }
+              <div class="ui inverted header">External Links</div>
+                <div class="ui horizontal link list">
+                  <a class="item" href={`http://imdb.com/title/${imdbid}`} target="_blank">IMDB</a>
+                  <a class="item" href={`https://rottentomatoes.com/m/${title.replace(/[^a-zA-Z0-9]/g, '_').replace(/_+/g, '_')}`} target="_blank">Rotten Tomatoes</a>
+                  <a class="item" href={`https://themoviedb.org/movie/${tmdbid}`} target="_blank">TMDb</a>
+                  <a class="item" href={`https://www.youtube.com/results?search_query=${title.replace(' ', '+')}+trailer`} target="_blank">Youtube</a>
+                  <a class="item" href={`https://google.com/search?q=${title.replace(' ', '+')}`} target="_blank">Google</a>
+                </div>
             </div>
             <div class="eleven wide tablet eleven wide computer column">
               <div class="ui two column stackable grid">
