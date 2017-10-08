@@ -38,16 +38,6 @@ export default class Landing extends React.Component {
         <div class="background" style={{backgroundImage: `url(https://d23c7nf4jw8oo7.cloudfront.net/cdnized/bg_96580c311a9a.png)`}}></div>
 
         <div class='ui text container grid' style={{marginTop: '4rem', minHeight: '100vh'}}>
-          <div class='row'>
-            <div class="column">
-              <div class="ui tiny success message">
-                <div class="header">Update (4-10-2017)</div>
-                <p>
-                  There were many bug reports after upgrading the website. We have fixed them to the best of our knowledge, please report if you come across any more bugs.
-                </p>
-              </div>
-            </div>
-          </div>
           <div class="row">
             <Load addClass='column'>
               <h1 class='ui center aligned inverted header'>
