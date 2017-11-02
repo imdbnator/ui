@@ -34,7 +34,7 @@ export default class Movies extends React.Component{
         field: 'entryid',
         order: 'asc'
       },
-      view: 'table',
+      view: 'celled',
       filtersQueue: [],
       sidebarVisible: false,
       visibility: {
@@ -159,7 +159,7 @@ export default class Movies extends React.Component{
       for (let i = 0; i < searchIn.length; i++) {
         const field = searchIn[i]
         let condition = false
-        if (isEmpty(movie[field])) continue        
+        if (isEmpty(movie[field])) continue
         switch (field) {
           case 'cast':
           case 'crew':
