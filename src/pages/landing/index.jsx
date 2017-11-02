@@ -260,6 +260,7 @@ export default class Landing extends React.Component {
                     </div>
                   </div>
                 </Modal>
+                <a class="item" href="https://github.com/saikrishnadeep/imdbnator">Contribute</a>
               </div>
             </div>
             <div class="column">
@@ -303,23 +304,13 @@ export default class Landing extends React.Component {
               </div>
             </div>
             <div class="column">
-              <h4 class="ui inverted teal header">
-                <i class="red heart mini icon"></i>
-                Help Preserve This Project
-              </h4>
-              <p> Please support by sharing us for continued development of this website or you could give us your valuable feedback &nbsp;
-                <Modal trigger={<a class="item" href="javascript:void(0)" target="_blank">here</a>}>
-                  <div class="header">Feedback</div>
-                  <div class="content">
-                    <div class="description">
-                      <p>Use the form below for feedback or send us an email at <a href="mailto:imdbnator@gmail.com">imdbnator@gmail.com</a>. We will get back to you within 24 hours!</p>
-                      <p>
-                      <iframe src="http://kontactr.com/xuser/212841" width="368px" height="600px" frameBorder="0"></iframe>
-                      </p>
-                    </div>
-                  </div>
-                </Modal> :)
-              </p>
+              <a href="https://github.com/saikrishnadeep/imdbnator">
+                <h4 class="ui inverted teal header">
+                  <i class="grey github icon"></i>
+                  Help Preserve This Project
+                </h4>
+              </a>
+              <p> Please support by sharing us for continued development of this website or you could give us your valuable feedback!              </p>
               <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//imdbnator.com" target="_blank" class="ui facebook button">
                 <i class="facebook icon"></i>
                 Facebook
