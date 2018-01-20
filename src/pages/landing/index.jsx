@@ -44,6 +44,9 @@ export default class Landing extends React.Component {
                 Catalog movies on <span id='typed'>a Website.</span>
                 <div class='sub header'>
                   All your movie data with format, ratings, trailer, genre, cast, plot & more in one place.
+                  <div class="ui red small message" style={{textAlign:'left'}}>
+                    <div class="ui blue label">UPDATE (21-1-2018)</div> Due to limited users and service expenses, we have decided to stop service. You can setup the entire backend API and data dumps by cloning our <a href="https://github.com/saikrishnadeep/imdbnator-api">repo</a>. The app requires only around 4GB of memory and 2 CPU cores to run. If you wish to help everyone out with this free service by hosting it on your server, then please <a href="mailto:imdbnator@gmail.com">contact</a> us :)  - IMDbnator Team
+                  </div>
                 </div>
               </h1>
             </Load>
@@ -65,7 +68,7 @@ export default class Landing extends React.Component {
           <div class="row">
             <div class="seven wide center aligned column">
               <div class="ui image">
-                <img src="https://semantic-ui.com/images/wireframe/square-image.png" />
+                <a href="https://camo.githubusercontent.com/f54d254dc1791ec0c6e6c80d13514f4880024e77/68747470733a2f2f692e696d6775722e636f6d2f4849395343626c2e6a7067" target="new"><img src="https://camo.githubusercontent.com/f54d254dc1791ec0c6e6c80d13514f4880024e77/68747470733a2f2f692e696d6775722e636f6d2f4849395343626c2e6a7067" /></a>
               </div>
             </div>
             <div class="two wide column"></div>
